@@ -1,0 +1,430 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Bee's Dice — Photo Gallery</title>
+    <style>
+        :root{
+            --black: #0b0b0b;
+            --yellow: #ffd24d;
+            --orange: #ff9800;
+            --muted: #2f3336; /* deep grey solid background */
+            --white: #ffffff;
+            --nav-height: 64px;
+            --hex-size: 140px;
+            --caption-bg: rgba(0,0,0,0.55);
+            --caption-text: #ffffff;
+            --panel-bg: #073532; /* deep teal panel */
+            --accent: #32d2b2;   /* bright teal accent */
+
+            /* override earlier values to restore the older teal/green/white scheme */
+            --orange: #0b8a81;   /* used for the top nav background (teal) */
+            --yellow: #8be7b8;   /* used as the brand highlight (green) */
+            --muted: #0a2b2a;    /* page background (deep teal) */
+            --white: #ffffff;
+        }
+
+        /* Reset-ish */
+        *{box-sizing:border-box;margin:0;padding:0}
+        html,body{height:100%}
+        body{
+            font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+            background: var(--muted);
+            color:var(--white);
+            -webkit-font-smoothing:antialiased;
+            -moz-osx-font-smoothing:grayscale;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* Sticky nav */
+        header{
+            position:sticky;
+            top:0;
+            z-index:40;
+            backdrop-filter: blur(6px);
+            background: var(--orange);
+            border-bottom: 3px solid rgba(0,0,0,0.18);
+            box-shadow: 0 4px 18px rgba(0,0,0,0.12);
+        }
+        .nav{
+            height:var(--nav-height);
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            gap:1rem;
+            max-width:1150px;
+            margin:0 auto;
+            padding:0 1rem;
+        }
+        .brand{
+            display:flex;
+            align-items:center;
+            gap:.6rem;
+            color:var(--black);
+            font-weight:700;
+            text-decoration:none;
+        }
+        .brand .logo{
+            width:36px;height:36px;display:inline-grid;place-items:center;
+            background:var(--black);
+            color:var(--yellow);
+            border-radius:6px;
+            font-weight:800;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.25);
+            border: 2px solid rgba(255,255,255,0.06);
+        }
+        nav ul{
+            display:flex;
+            gap:.6rem;
+            list-style:none;
+            align-items:center;
+        }
+        nav a{
+            padding:.5rem .8rem;
+            color: var(--white);
+            text-decoration:none;
+            border-radius:6px;
+            font-weight:600;
+            transition: all .15s ease;
+        }
+        nav a:hover{
+            background: rgba(0,0,0,0.08);
+            transform:translateY(-2px);
+            color:var(--yellow);
+        }
+
+        /* Mobile hamburger */
+        .menu-toggle{display:none; background:transparent;border:0;padding:.4rem;border-radius:6px}
+        .menu-toggle svg{width:28px;height:28px;color:var(--black)}
+
+        main{min-height:calc(100vh - var(--nav-height)); padding:2rem 1rem 4rem; display:block;}
+        .hero-header{
+            max-width:1150px;
+            margin:0 auto 1.4rem;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            gap:1rem;
+            padding:0 1rem;
+        }
+        .hero-header h1{
+            color:var(--white);
+            font-size:clamp(1.4rem, 2.6vw, 1.9rem);
+        }
+        .hero-header p{
+            color: rgba(255,255,255,0.9);
+            font-size:.95rem;
+        }
+        .hero-header .note {
+            color: var(--accent);
+            font-weight:700;
+        }
+
+        /* gallery grid */
+        .gallery-wrap{
+            max-width:1150px;
+            margin:0 auto;
+            padding:0 1rem;
+        }
+        .gallery-grid{
+            display:grid;
+            grid-template-columns: repeat(auto-fit, minmax(calc(var(--hex-size)), 1fr));
+            gap:14px;
+            justify-items:center;
+            align-items:start;
+        }
+
+        .photo{
+            width:var(--hex-size);
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            position:relative;
+        }
+
+        .hex {
+            width:100%;
+            aspect-ratio: 1 / 1;
+            clip-path: polygon(25% 6.7%, 75% 6.7%, 100% 50%, 75% 93.3%, 25% 93.3%, 0% 50%);
+            background: rgba(255,255,255,0.03); /* subtle */
+            border: 1px solid rgba(0,0,0,0.08);
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            overflow:hidden;
+            border-radius:6px;
+            cursor:pointer;
+            transition: transform .18s ease, box-shadow .18s ease;
+        }
+        .hex img{
+            width:120%;
+            height:120%;
+            object-fit:cover;
+            display:block;
+            transform:translateY(0);
+            transition: transform .35s ease;
+            pointer-events:none;
+            filter: saturate(1.05) contrast(1.02);
+        }
+        .hex:hover{transform:translateY(-6px); box-shadow: 0 12px 28px rgba(255,152,0,0.16)}
+        .hex:hover img{transform:scale(1.05)}
+        .caption {
+            position:absolute;
+            bottom:8px;
+            left:8px;
+            right:8px;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            gap:.4rem;
+            font-size:.82rem;
+            color:var(--caption-text);
+            background: var(--caption-bg);
+            padding:.45rem .6rem;
+            border-radius:8px;
+            border:1px solid rgba(255,255,255,0.02);
+            backdrop-filter: blur(3px);
+            box-shadow: 0 6px 18px rgba(11,11,11,0.25);
+            font-weight:600;
+        }
+
+        /* modal / lightbox */
+        .lightbox {
+            position:fixed;
+            inset:0;
+            display:none;
+            place-items:center;
+            background: rgba(11,11,11,0.88); /* solid overlay */
+            z-index:120;
+        }
+        .lightbox[aria-hidden="false"]{display:grid}
+        .lightbox .panel{
+            max-width:1100px;
+            width:calc(100% - 3rem);
+            max-height:90vh;
+            background: var(--panel-bg); /* solid, no gradient */
+            border-radius:12px;
+            padding:12px;
+            display:flex;
+            gap:12px;
+            align-items:center;
+            justify-content:center;
+            position:relative;
+            box-shadow:0 20px 60px rgba(0,0,0,0.45);
+        }
+        .lightbox img{
+            max-width:100%;
+            max-height:80vh;
+            width:auto;
+            height:auto;
+            display:block;
+            border-radius:8px;
+            box-shadow: 0 10px 40px rgba(11,11,11,0.28);
+        }
+        .lb-close{
+            position:absolute;
+            top:8px;
+            right:8px;
+            background:transparent;border:0;color:var(--black);font-weight:700;padding:.4rem;border-radius:6px;cursor:pointer;
+        }
+        .lb-nav{
+            position:absolute;
+            top:50%;
+            transform:translateY(-50%);
+            font-size:1.6rem;
+            color:rgba(255,255,255,0.95);
+            background:transparent;border:0;padding:.6rem;border-radius:8px;cursor:pointer;
+        }
+        .lb-prev{left:12px}
+        .lb-next{right:12px}
+
+        /* Responsive tweaks */
+        @media (max-width:980px){
+            :root{--hex-size:110px}
+            .hero-header{flex-direction:column;align-items:flex-start;gap:.6rem;padding:0 1rem 8px}
+            nav ul{display:none}
+            .menu-toggle{display:inline-flex}
+        }
+        @media (max-width:520px){
+            :root{--hex-size:92px}
+            .gallery-grid{gap:10px}
+            .caption{font-size:.7rem}
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="nav" role="navigation" aria-label="Main navigation">
+            <a href="#" class="brand" aria-label="Bee's Dice home">
+                <span class="logo">BD</span>
+                <span>Bee's Dice</span>
+            </a>
+
+            <nav>
+                <button class="menu-toggle" aria-expanded="false" aria-label="Toggle menu" id="menuToggle">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        <path d="M3 6h18M3 12h18M3 18h18"></path>
+                    </svg>
+                </button>
+
+                <ul id="navList">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Gallery</a></li>
+                    <li><a href="#">Projects</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="hero-header" role="region" aria-labelledby="gallery-title">
+            <div>
+                <h1 id="gallery-title">Bee's Dice — Photo Gallery</h1>
+                <p>Curated stock images shown in a beehive-style hex grid. Click any tile to view larger.</p>
+            </div>
+            <div>
+                <small class="note">Free stock images — photos from Picsum</small>
+            </div>
+        </div>
+
+        <div class="gallery-wrap">
+            <div class="gallery-grid" id="galleryGrid" aria-live="polite">
+                <!-- Tiles will be injected by JS -->
+            </div>
+        </div>
+    </main>
+
+    <!-- lightbox / modal -->
+    <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="lightboxLabel">
+        <button class="lb-nav lb-prev" id="lbPrev" aria-label="Previous image">‹</button>
+        <div class="panel" role="document">
+            <button class="lb-close" id="lbClose" aria-label="Close viewer">✕</button>
+            <img src="" alt="" id="lbImage" />
+        </div>
+        <button class="lb-nav lb-next" id="lbNext" aria-label="Next image">›</button>
+    </div>
+
+    <script>
+        // mobile menu toggle
+        const btn = document.getElementById('menuToggle');
+        const navList = document.getElementById('navList');
+
+        btn.addEventListener('click', () => {
+            const expanded = btn.getAttribute('aria-expanded') === 'true';
+            btn.setAttribute('aria-expanded', String(!expanded));
+            if (navList.style.display === 'flex') {
+                navList.style.display = '';
+            } else {
+                navList.style.display = 'flex';
+                navList.style.flexDirection = 'column';
+                navList.style.position = 'absolute';
+                navList.style.right = '1rem';
+                navList.style.top = '64px';
+                navList.style.background = 'rgba(255,255,255,0.95)';
+                navList.style.padding = '0.6rem';
+                navList.style.borderRadius = '8px';
+                navList.style.boxShadow = '0 8px 24px rgba(2,18,15,0.08)';
+            }
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!btn.contains(e.target) && !navList.contains(e.target) && window.innerWidth <= 980) {
+                navList.style.display = '';
+                btn.setAttribute('aria-expanded','false');
+            }
+        });
+
+        // --- Gallery data (Picsum IDs for stable images) ---
+        const photos = [
+            {id: 1025, title: 'Green bee closeup'},
+            {id: 1015, title: 'Meadow landscape'},
+            {id: 1003, title: 'Flowers and sunlight'},
+            {id: 1024, title: 'Forest path'},
+            {id: 1016, title: 'Mountains'},
+            {id: 1021, title: 'Macro pollen'},
+            {id: 1069, title: 'Field with trees'},
+            {id: 1074, title: 'Leaf texture'},
+            {id: 1084, title: 'Dew drops'},
+            {id: 1080, title: 'Sunlit sky'},
+            {id: 1081, title: 'Honey comb abstract'},
+            {id: 1056, title: 'Close plant'}
+        ];
+
+        const gallery = document.getElementById('galleryGrid');
+
+        photos.forEach((p, i) => {
+            const thumb = document.createElement('div');
+            thumb.className = 'photo';
+            thumb.innerHTML = `
+                <button class="hex" data-index="${i}" aria-label="Open ${p.title}">
+                    <img src="https://picsum.photos/id/${p.id}/800/800" alt="${p.title}" loading="lazy">
+                </button>
+                <div class="caption">${p.title}</div>
+            `;
+            gallery.appendChild(thumb);
+        });
+
+        // Lightbox behavior
+        const lb = document.getElementById('lightbox');
+        const lbImage = document.getElementById('lbImage');
+        const lbClose = document.getElementById('lbClose');
+        const lbPrev = document.getElementById('lbPrev');
+        const lbNext = document.getElementById('lbNext');
+
+        let currentIndex = -1;
+
+        function openLightbox(idx) {
+            currentIndex = idx;
+            const p = photos[idx];
+            lbImage.src = `https://picsum.photos/id/${p.id}/1600/1200`;
+            lbImage.alt = p.title;
+            lb.setAttribute('aria-hidden','false');
+            document.body.style.overflow = 'hidden';
+            // focus management
+            lbClose.focus();
+        }
+        function closeLightbox() {
+            lb.setAttribute('aria-hidden','true');
+            lbImage.src = '';
+            document.body.style.overflow = '';
+            currentIndex = -1;
+        }
+        function showPrev() {
+            if (currentIndex <= 0) currentIndex = photos.length - 1; else currentIndex--;
+            openLightbox(currentIndex);
+        }
+        function showNext() {
+            if (currentIndex >= photos.length - 1) currentIndex = 0; else currentIndex++;
+            openLightbox(currentIndex);
+        }
+
+        // Open when clicking a hex
+        document.querySelectorAll('.hex').forEach(btnHex => {
+            btnHex.addEventListener('click', (e) => {
+                const idx = Number(btnHex.getAttribute('data-index'));
+                openLightbox(idx);
+            });
+        });
+
+        lbClose.addEventListener('click', closeLightbox);
+        lbPrev.addEventListener('click', showPrev);
+        lbNext.addEventListener('click', showNext);
+
+        // click outside panel closes
+        lb.addEventListener('click', (e) => {
+            if (e.target === lb) closeLightbox();
+        });
+
+        // keyboard
+        document.addEventListener('keydown', (e) => {
+            if (lb.getAttribute('aria-hidden') === 'false') {
+                if (e.key === 'Escape') closeLightbox();
+                if (e.key === 'ArrowLeft') showPrev();
+                if (e.key === 'ArrowRight') showNext();
+            }
+        });
+    </script>
+</body>
+</html>
