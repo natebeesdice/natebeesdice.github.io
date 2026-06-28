@@ -2,9 +2,11 @@
   // Simple gallery lightbox + mobile menu toggle
   (function(){
     const galleryImgs = Array.from(document.querySelectorAll('.hex img'));
+    const galleryNames = Array.from(document.querySelectorAll('.hex h2'));
     const hexButtons = Array.from(document.querySelectorAll('.hex'));
     const lightbox = document.getElementById('lightbox');
     const lbImage = document.getElementById('lbImage');
+    const lbName = document.getElementById('lbName');
     const lbClose = document.getElementById('lbClose');
     const lbPrev = document.getElementById('lbPrev');
     const lbNext = document.getElementById('lbNext');
@@ -14,8 +16,10 @@
       current = index;
       const src = galleryImgs[current].src;
       const alt = galleryImgs[current].alt || '';
+      const name = galleryNames[current]?.textContent || '';
       lbImage.src = src;
       lbImage.alt = alt;
+      lbName.textContent = name;
       lightbox.setAttribute('aria-hidden','false');
       document.body.style.overflow = 'hidden';
     }
@@ -28,6 +32,7 @@
       current = (n + galleryImgs.length) % galleryImgs.length;
       lbImage.src = galleryImgs[current].src;
       lbImage.alt = galleryImgs[current].alt || '';
+      lbName.textContent = galleryNames[current]?.textContent || '';
     }
 
     hexButtons.forEach(btn => {

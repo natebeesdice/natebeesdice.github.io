@@ -10,7 +10,7 @@
     --white: #f6f4e4;
     --nav-height: 64px;
     --hex-size: 140px;
-    --caption-bg: rgba(255, 255, 255, 0.95);
+    --caption-bg: #ffd34dd6;
     --caption-text: var(--text-on-muted);
     --panel-bg: #f6f4e4;
     --accent: var(--brand-yellow);
@@ -177,11 +177,12 @@ main {
 
 .hex {
     width: 100%;
+    min-width: 8vw;
     aspect-ratio: 1 / 1;
     clip-path: polygon(25% 6.7%, 75% 6.7%, 100% 50%, 75% 93.3%, 25% 93.3%, 0% 50%);
     background: var(--white);
     /* keep cards white so page doesn't read as a single yellow field */
-    border: 1px solid rgba(0, 0, 0, 0.06);
+    /* border: 1px solid rgba(0, 0, 0, 0.06); */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -200,6 +201,7 @@ main {
     transition: transform .35s ease;
     pointer-events: none;
     filter: saturate(0.98) contrast(0.99) brightness(0.99);
+
 }
 
 .hex:hover {
@@ -245,10 +247,12 @@ main {
         gap:1rem;
         padding:0 1rem;
     } */
+
 .roles .left {
      background: var(--brand-yellow);
         border-radius: 20px;
         padding: 1rem;
+        max-height: 25vh;
 }   
 
 .roles .left hr{
@@ -265,6 +269,11 @@ main {
 .roles .right hr{
     border: 1px solid var(--brand-yellow);
     margin-bottom: 1rem;
+}
+.roles .photo{
+ height: 90%;
+ 
+
 }
 
 .left {
@@ -285,13 +294,22 @@ main {
     justify-content: space-between;
     gap: 1rem;
     padding: 0 1rem;
+    text-align: left;
+}
+.text {
+   width: 70svw;
 }
 
 .feed {
     width: 71%;
-    height: 600px;
+    height: 80vh;
+    max-height: 600px;
     margin: 0 auto;
     padding: 0 1rem;
+}
+
+.imbed {
+    border-radius: 12px;
 }
 
 /* modal / lightbox */
@@ -300,7 +318,7 @@ main {
     inset: 0;
     display: none;
     place-items: center;
-    background: rgba(11, 11, 11, 0.88);
+    background: rgba(11, 11, 11, 0.509);
     z-index: 120;
 }
 
@@ -308,11 +326,15 @@ main {
     display: grid
 }
 
+.panel {
+    background: #0b0b0be0;
+}
+
 .lightbox .panel {
     max-width: 1100px;
     width: calc(100% - 3rem);
     max-height: 90vh;
-    background: var(--panel-bg);
+    /* background: var(--panel-bg); */
     border-radius: 12px;
     padding: 12px;
     display: flex;
@@ -332,6 +354,19 @@ main {
     border-radius: 8px;
     box-shadow: 0 10px 40px rgba(11, 11, 11, 0.12);
 }
+.lightbox h2 {
+    font-size: 1.2rem;
+    color: var(--text-on-muted);
+    background: var(--caption-bg);
+    padding: .45rem .6rem;
+    border-radius: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    backdrop-filter: blur(3px);
+    box-shadow: 0 6px 18px rgba(11, 11, 11, 0.06);
+    font-weight: 600;
+    text-align: center;
+    margin-top: 0.5vh;
+}
 
 .lb-close {
     position: absolute;
@@ -339,7 +374,7 @@ main {
     right: 8px;
     background: transparent;
     border: 0;
-    color: var(--text-on-muted);
+    color: var(--caption-bg);
     font-weight: 700;
     padding: .4rem;
     border-radius: 6px;
@@ -351,7 +386,7 @@ main {
     top: 50%;
     transform: translateY(-50%);
     font-size: 1.6rem;
-    color: rgba(0, 0, 0, 0.9);
+    color: var(--caption-bg);
     background: transparent;
     border: 0;
     padding: .6rem;

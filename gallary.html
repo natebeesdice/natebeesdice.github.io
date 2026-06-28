@@ -42,6 +42,7 @@
       <!-- A handful of sample images (Unsplash / Picsum) -->
       <figure class="photo">
         <div class="hex" data-index="0" tabindex="0" role="button" aria-label="Open image 1">
+          <h2 id="name" hidden="true">Landscape: 1</h2>
           <img src="https://picsum.photos/id/1015/800/800" alt="Landscape 1" loading="lazy">
         </div>
         <figcaption class="caption">Landscape <span>• 1</span></figcaption>
@@ -49,6 +50,7 @@
 
       <figure class="photo">
         <div class="hex" data-index="1" tabindex="0" role="button" aria-label="Open image 2">
+          <h2 id="name" hidden="true">Dog portrait: 2</h2>
           <img src="https://picsum.photos/id/1025/800/800" alt="Dog portrait" loading="lazy">
         </div>
         <figcaption class="caption">Portrait <span>• 2</span></figcaption>
@@ -56,6 +58,7 @@
 
       <figure class="photo">
         <div class="hex" data-index="2" tabindex="0" role="button" aria-label="Open image 3">
+          <h2 id="name" hidden="true">Mountain: 3</h2>
           <img src="https://picsum.photos/id/1031/800/800" alt="Mountain" loading="lazy">
         </div>
         <figcaption class="caption">Mountain <span>• 3</span></figcaption>
@@ -63,6 +66,7 @@
 
       <figure class="photo">
         <div class="hex" data-index="3" tabindex="0" role="button" aria-label="Open image 4">
+          <h2 id="name" hidden="true">Sea: 4</h2>
           <img src="https://picsum.photos/id/1043/800/800" alt="Sea" loading="lazy">
         </div>
         <figcaption class="caption">Sea <span>• 4</span></figcaption>
@@ -70,6 +74,7 @@
 
       <figure class="photo">
         <div class="hex" data-index="4" tabindex="0" role="button" aria-label="Open image 5">
+          <h2 id="name" hidden="true">City: 5</h2>
           <img src="https://picsum.photos/id/1056/800/800" alt="City" loading="lazy">
         </div>
         <figcaption class="caption">City <span>• 5</span></figcaption>
@@ -77,6 +82,7 @@
 
       <figure class="photo">
         <div class="hex" data-index="5" tabindex="0" role="button" aria-label="Open image 6">
+          <h2 id="name" hidden="true">Forest: 6</h2>
           <img src="https://picsum.photos/id/1067/800/800" alt="Forest" loading="lazy">
         </div>
         <figcaption class="caption">Forest <span>• 6</span></figcaption>
@@ -84,6 +90,7 @@
 
       <figure class="photo">
         <div class="hex" data-index="6" tabindex="0" role="button" aria-label="Open image 7">
+          <h2 id="name" hidden="true">Flowers: 7</h2>
           <img src="https://picsum.photos/id/1074/800/800" alt="Flowers" loading="lazy">
         </div>
         <figcaption class="caption">Flowers <span>• 7</span></figcaption>
@@ -91,6 +98,7 @@
 
       <figure class="photo">
         <div class="hex" data-index="7" tabindex="0" role="button" aria-label="Open image 8">
+          <h2 id="name" hidden="true">Desert: 8</h2>
           <img src="https://picsum.photos/id/1084/800/800" alt="Desert" loading="lazy">
         </div>
         <figcaption class="caption">Desert <span>• 8</span></figcaption>
@@ -100,14 +108,17 @@
 </main>
 
 <!-- Lightbox -->
-<div class="lightbox" id="lightbox" aria-hidden="true">
-  <div class="panel" role="dialog" aria-modal="true">
-    <button class="lb-close" id="lbClose" title="Close (Esc)">✕</button>
-    <button class="lb-nav lb-prev" id="lbPrev" aria-label="Previous image">◀</button>
-    <img src="" alt="" id="lbImage">
-    <button class="lb-nav lb-next" id="lbNext" aria-label="Next image">▶</button>
-  </div>
-</div>
+    <div class="lightbox" id="lightbox" aria-hidden="true">
+        <div class="panel" role="dialog" aria-modal="true">
+            <div>
+            <button class="lb-close" id="lbClose" title="Close (Esc)">✕</button>
+            <button class="lb-nav lb-prev" id="lbPrev" aria-label="Previous image">◀</button>
+            <img src="" alt="" id="lbImage">
+            <button class="lb-nav lb-next" id="lbNext" aria-label="Next image">▶</button>
+                        <h2 value="" id="lbName"></h2>
+        </div>
+        </div>
+    </div>
 
 <script src="script.js"></script>
 </body>
