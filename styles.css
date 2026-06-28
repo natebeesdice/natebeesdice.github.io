@@ -128,7 +128,7 @@ main {
 }
 
 .hero-header {
-    max-width: 1150px;
+    width: 71%;
     margin: 0 auto 1.4rem;
     display: flex;
     justify-content: space-between;
@@ -154,7 +154,7 @@ main {
 
 /* gallery grid */
 .gallery-wrap {
-    max-width: 1150px;
+    max-width: 71%;
     margin: 0 auto;
     padding: 0 1rem;
 }
@@ -251,16 +251,25 @@ main {
         padding: 1rem;
 }   
 
+.roles .left hr{
+    border: 1px solid var(--nav-bg);
+    margin-bottom: 1rem;
+}
+
 .roles .right {
      background: #1e1d1d;
         border-radius: 20px;
         padding: 1rem;
        color: var(--brand-yellow);
 }
+.roles .right hr{
+    border: 1px solid var(--brand-yellow);
+    margin-bottom: 1rem;
+}
 
 .left {
     align-items: left;
-    width: 63%;
+    width: 73%;
     margin: 0 auto 1.4rem;
     display: flex;
     justify-content: space-between;
@@ -270,11 +279,18 @@ main {
 
 .right {
     align-items: right;
-    width: 63%;
+    width: 73%;
     margin: 0 auto 1.4rem;
     display: flex;
     justify-content: space-between;
     gap: 1rem;
+    padding: 0 1rem;
+}
+
+.feed {
+    width: 71%;
+    height: 600px;
+    margin: 0 auto;
     padding: 0 1rem;
 }
 
