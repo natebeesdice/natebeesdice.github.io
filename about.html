@@ -45,61 +45,64 @@
 
         <!--roles-->
         <div class="roles">
-        <div class="left">
-            <figure class="photo">
-                <div class="hex" data-index="0" tabindex="0" role="button" aria-label="Open image 1">
-                    <h2 id="name" hidden="true">Toby: King Bee</h2>
-                    <img src="https://picsum.photos/id/1015/800/800" alt="Toby" loading="lazy">
+            <div class="left">
+                <figure class="photo">
+                    <div class="hex" data-index="0" tabindex="0" role="button" aria-label="Open image 1">
+                        <h2 id="name" hidden="true">Toby: King Bee</h2>
+                        <img src="https://picsum.photos/id/1015/800/800" alt="Toby" loading="lazy">
+                    </div>
+                    <!-- <figcaption class="caption">Toby <span>King Bee</span></figcaption> -->
+                </figure>
+                <div class="text">
+                    <div>
+                        <h2>Toby: King Bee</h2>
+                        <hr>
+                        <p>Toby is the king of our little hive. He makes the sweet nector called dice and is the leading
+                            figure.</p>
+                    </div>
                 </div>
-                <!-- <figcaption class="caption">Toby <span>King Bee</span></figcaption> -->
-            </figure>
-            <div class="text">
-                <div>
-                <h2>Toby: King Bee</h2>
-                <hr>
-            <p>Toby is the king of our little hive. He makes the sweet nector called dice and is the leading figure.</p>
-        </div>
+            </div>
+
+            <div class="right">
+                <div class="text">
+                    <div>
+                        <h2>Nate: Busy Bee</h2>
+                        <hr>
+                        <p>Nate is the duke of our hive. He is the second in command and helps Toby make the dice and
+                            keep the hive
+                            running smoothly.</p>
+                    </div>
+                </div>
+                <figure class="photo">
+                    <div class="hex" data-index="1" tabindex="0" role="button" aria-label="Open image 2">
+                        <h2 id="name" hidden="true">Nate: Busy Bee</h2>
+                        <img src="assets/images/NateBee.png" alt="Nate" loading="lazy">
+                    </div>
+                    <!-- <figcaption class="caption">Nate <span>Busy Bee</span></figcaption> -->
+                </figure>
+
+            </div>
+
+            <div class="left">
+                <figure class="photo">
+                    <div class="hex" data-index="2" tabindex="0" role="button" aria-label="Open image 2">
+                        <h2 id="name" hidden="true">Blaze: Worker Bee</h2>
+                        <img src="assets/images/BlazeBee.png" alt="Blaze" loading="lazy">
+                    </div>
+                    <!-- <figcaption class="caption">Blaze <span>Worker Bee</span></figcaption> -->
+                </figure>
+                <div class="text">
+                    <div>
+                        <h2>Blaze: Worker Bee</h2>
+                        <hr>
+                        <p>Blaze is a worker bee. He is responsible for selling the dice and keeping the hive clean and
+                            organized.
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="right">   
-            <div class="text">
-                <div>
-                <h2>Nate: Busy Bee</h2>
-                <hr>
-            <p>Nate is the duke of our hive. He is the second in command and helps Toby make the dice and keep the hive
-                running smoothly.</p>
-            </div>
-             </div>   
-            <figure class="photo">
-                <div class="hex" data-index="1" tabindex="0" role="button" aria-label="Open image 2">
-                    <h2 id="name" hidden="true">Nate: Busy Bee</h2>
-                    <img src="assets/images/NateBee.png" alt="Nate" loading="lazy">
-                </div>
-                <!-- <figcaption class="caption">Nate <span>Busy Bee</span></figcaption> -->
-            </figure>
-            
-        </div>
-
-        <div class="left">
-            <figure class="photo">
-                <div class="hex" data-index="2" tabindex="0" role="button" aria-label="Open image 2">
-                    <h2 id="name" hidden="true">Blaze: Worker Bee</h2>
-                    <img src="assets/images/BlazeBee.png" alt="Blaze" loading="lazy">
-                </div>
-                <!-- <figcaption class="caption">Blaze <span>Worker Bee</span></figcaption> -->
-            </figure>
-            <div class="text">
-                <div>
-                <h2>Blaze: Worker Bee</h2>
-                <hr>
-            <p>Blaze is a worker bee. He is responsible for selling the dice and keeping the hive clean and organized.
-            </p>
-            </div>
-        </div>
-        </div>
-        </div>
-            
 
 
 
@@ -108,15 +111,16 @@
     <div class="lightbox" id="lightbox" aria-hidden="true">
         <div class="panel" role="dialog" aria-modal="true">
             <div>
-            <button class="lb-close" id="lbClose" title="Close (Esc)">✕</button>
-            <button class="lb-nav lb-prev" id="lbPrev" aria-label="Previous image">◀</button>
-            <img src="" alt="" id="lbImage">
-            <button class="lb-nav lb-next" id="lbNext" aria-label="Next image">▶</button>
-                        <h2 value="" id="lbName"></h2>
-        </div>
+                <button class="lb-close" id="lbClose" title="Close (Esc)">✕</button>
+                <button class="lb-nav lb-prev" id="lbPrev" aria-label="Previous image">◀</button>
+                <img src="" alt="" id="lbImage">
+                <button class="lb-nav lb-next" id="lbNext" aria-label="Next image">▶</button>
+                <h2 value="" id="lbName"></h2>
+            </div>
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script src="lbscript.js"></script>
+    <script src="navscript.js"></script>
 
 </body>
